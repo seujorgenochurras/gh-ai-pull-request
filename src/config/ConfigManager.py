@@ -2,7 +2,7 @@ import os
 from typing import Any
 import json
 
-DEFAULT_CONFIG_DIR_PATH = "~/.gh_ai_pr"
+DEFAULT_CONFIG_DIR_PATH = os.path.expanduser("~/.gh_ai_pr")
 
 
 class ConfigManager:
