@@ -12,6 +12,10 @@ license = { text = "MIT" }
 
 [tool.pdm.scripts]
 format = "ruff format ."
+dev = "python src/main.py"
 
 [tool.pdm]
 distribution = false
+
+[tool.ruff]
+indent-width = 2
