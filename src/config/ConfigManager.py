@@ -2,7 +2,7 @@ import os
 from typing import Any
 import json
 
-DEFAULT_CONFIG_DIR_PATH = os.path.expanduser("~/.gh_ai_pr")
+from config.config import DEFAULT_CONFIG_DIR_PATH
 
 
 class ConfigManager:
@@ -21,7 +21,7 @@ class ConfigManager:
     self._rewrite_config_file()
 
   def get(self, key: str) -> Any:
-    return self.config[key]
+    return self.config.get(key)
 
   def _rewrite_config_file(self):
     with open(self.config_file_path, "w") as config_file:
