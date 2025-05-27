@@ -7,9 +7,9 @@ from gemini.PrPrompt import PrPrompt
 
 
 class PromptManager:
-  def __init__(self): 
+  def __init__(self):
     self.gemini_client = genai.Client(api_key=config_manager.get(GEMINI_KEY_PROPERTY))
-    
+
   def prompt_pr(self, pr_prompt_ctx: PrPrompt):
     prompt = f"""
       I'll give you a json containing some Pull request data,
@@ -21,10 +21,11 @@ class PromptManager:
       JSON: {json.dumps(pr_prompt_ctx.pr_data)} 
       
       
-      Instructions: {pr_prompt_ctx.instructions}
+      Instructions: {pr_prompt_ctx.instruction}
     """
+
     ai_response = self.gemini_client.models.generate_content(
       model="gemini-2.0-flash", contents=prompt
     )
-    
-    print(ai_response.text)
+
+    return ai_response.text.replace("```json", "").replace("```", "")  # type: ignore
