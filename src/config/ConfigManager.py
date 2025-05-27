@@ -14,18 +14,18 @@ class ConfigManager:
       self._create_initial_config_file()
 
     with open(self.config_file_path, "r") as config_file:
-      self.config: dict[str, Any] = json.loads(config_file.read())
+      self._config: dict[str, Any] = json.loads(config_file.read())
 
   def save(self, configName: str, value: Any):
-    self.config[configName] = value
+    self._config[configName] = value
     self._rewrite_config_file()
 
   def get(self, key: str) -> Any:
-    return self.config.get(key)
+    return self._config.get(key)
 
   def _rewrite_config_file(self):
     with open(self.config_file_path, "w") as config_file:
-      config_file.write(json.dumps(self.config))
+      config_file.write(json.dumps(self._config))
       config_file.flush()
 
   def _create_initial_config_file(self):
