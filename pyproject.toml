@@ -5,7 +5,7 @@ description = "Default template for PDM package"
 authors = [
     { name = "seujorgenochurras", email = "senhor_dois_monitores@outlook.com" },
 ]
-dependencies = ["ruff>=0.11.11", "questionary>=2.1.0"]
+dependencies = ["ruff>=0.11.11", "questionary>=2.1.0", "google-genai>=1.16.1"]
 requires-python = "==3.12.*"
 readme = "README.md"
 license = { text = "MIT" }
@@ -13,9 +13,6 @@ license = { text = "MIT" }
 [tool.pdm.scripts]
 format = "ruff format ."
 dev = "python src/main.py"
-
-[tool.pdm]
-distribution = false
 
 [tool.ruff]
 indent-width = 2

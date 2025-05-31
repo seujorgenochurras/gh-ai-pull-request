@@ -1,3 +1,5 @@
 from .ConfigManager import ConfigManager
 
-__all__ = ["ConfigManager"]
+config_manager = ConfigManager()
+
+__all__ = ["ConfigManager", "config_manager"]
