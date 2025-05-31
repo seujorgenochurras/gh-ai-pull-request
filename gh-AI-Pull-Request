@@ -6,12 +6,21 @@ cd "$SCRIPT_DIR"
 VENV_DIR="$SCRIPT_DIR/venv"
 VENV_PYTHON="$VENV_DIR/bin/python"
 
-if ! command -v pdm  &> /dev/null; then
-  echo "Installing pdm..."
-  $VENV_DIR/bin/pip install pdm
 
+if [ ! -d "$VENV_DIR" ]; then
+  echo "Creating virtual environment..."
+  python -m venv "$VENV_DIR"
 fi
 
-pdm install
+if ! command -v pdm  &> /dev/null; then
+  echo "Installing pdm..."
+  pip install --user pdm
+fi
+
+if [ ! -f "$VENV_DIR/bin/ruff" ]; then # just checking if any dependency has been installed
+  echo "Installing dependencies..."
+  pdm install
+fi
+
 
 exec pdm run "dev" "$@"
