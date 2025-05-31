@@ -1,35 +1,17 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Hello gh-AI-Pull-Request!"
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
+cd "$SCRIPT_DIR"
+VENV_DIR="$SCRIPT_DIR/venv"
+VENV_PYTHON="$VENV_DIR/bin/python"
 
-# Snippets to help get started:
+if ! command -v pdm  &> /dev/null; then
+  echo "Installing pdm..."
+  $VENV_DIR/bin/pip install pdm
 
-# Determine if an executable is in the PATH
-# if ! type -p ruby >/dev/null; then
-#   echo "Ruby not found on the system" >&2
-#   exit 1
-# fi
+fi
 
-# Pass arguments through to another command
-# gh issue list "$@" -R cli/cli
+pdm install
 
-# Using the gh api command to retrieve and format information
-# QUERY='
-#   query($endCursor: String) {
-#     viewer {
-#       repositories(first: 100, after: $endCursor) {
-#         nodes {
-#           nameWithOwner
-#           stargazerCount
-#         }
-#       }
-#     }
-#   }
-# '
-# TEMPLATE='
-#   {{- range $repo := .data.viewer.repositories.nodes -}}
-#     {{- printf "name: %s - stargazers: %v\n" $repo.nameWithOwner $repo.stargazerCount -}}
-#   {{- end -}}
-# '
-# exec gh api graphql -f query="${QUERY}" --paginate --template="${TEMPLATE}"
+exec pdm run "dev" "$@"
