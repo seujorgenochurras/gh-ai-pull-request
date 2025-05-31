@@ -1,0 +1,3 @@
+DEFAULT_CONFIG_DIR_PATH = "config"
+GEMINI_KEY_PROPERTY = "gemini_key"
+INSTRUCTIONS_PROPERTY = "instructions"
