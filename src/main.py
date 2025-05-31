@@ -8,7 +8,6 @@ from gh import GhManager
 from gh.PullRequest import PullRequest
 
 
-ai_manager = PromptManager()
 
 
 # "reescreva o body do pr em portugues, mantenha o tipo do commit seguindo conventional commits, nao traduza o tipo do commit"
@@ -23,10 +22,14 @@ def ask_create_instruction():
   return saved_instructions
 
 
-def ask_ai_instruction():
-  instructions: list[str] = config_manager.get(INSTRUCTIONS_PROPERTY)
+def ensure_instructions():
+  instructions = config_manager.get(INSTRUCTIONS_PROPERTY)
   if not instructions:
     instructions = ask_create_instruction()
+  return instructions
+
+def ask_ai_instruction():
+  instructions: list[str] = ensure_instructions()
 
   choices: list[questionary.Choice] = []
   choices.append(questionary.Choice("Create new prompt", "new_prompt"))
@@ -52,6 +55,7 @@ def ensure_ai_key():
 
 
 def create_pull_request(instruction : str):
+  ai_manager = PromptManager()
   pr_json = GhManager.create_dry_pr()
   raw_new_pr_json = ai_manager.prompt_pr(PrPrompt(pr_json, instruction))
   new_pr = PullRequest(**json.loads(raw_new_pr_json))
