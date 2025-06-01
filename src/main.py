@@ -1,10 +1,9 @@
 import questionary
 
-from config import config_manager
-from config.config import GEMINI_KEY_PROPERTY, INSTRUCTIONS_PROPERTY
-from gemini.PromptManager import PromptManager
-from gemini.PrPrompt import PrPrompt
-from gh import GhManager
+from config import GEMINI_KEY_PROPERTY, INSTRUCTIONS_PROPERTY, config_manager
+from gemini.prompt_manager import PromptManager
+from gemini.pr_prompt import PrPrompt
+from gh import gh_manager
 
 
 def ask_create_instruction():
@@ -51,10 +50,10 @@ def ensure_ai_key():
 
 def create_pull_request(instruction: str):
   ai_manager = PromptManager()
-  pr_json = GhManager.create_dry_pr()
+  pr_json = gh_manager.create_dry_pr()
   new_pr = ai_manager.prompt_pr(PrPrompt(pr_json, instruction))
 
-  return GhManager.create_pr(new_pr)
+  return gh_manager.create_pr(new_pr)
 
 
 def main():

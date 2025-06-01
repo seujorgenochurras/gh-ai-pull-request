@@ -1,11 +1,11 @@
 import subprocess
-from gh import GhDryRunParser
-from gh.PullRequest import PullRequest
+from gh import gh_dry_run_parser
+from gh.pull_request import PullRequest
 
 
 def create_dry_pr():
   command_output = _run_shell_command("gh pr create --dry-run -f").split("\n", 1)[1]
-  return GhDryRunParser.parse_output(command_output)
+  return gh_dry_run_parser.parse_output(command_output)
 
 
 def create_pr(pull_request: PullRequest):
