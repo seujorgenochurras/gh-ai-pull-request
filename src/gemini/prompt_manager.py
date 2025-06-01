@@ -4,7 +4,8 @@ from pydantic_ai.agent import Agent
 from pydantic_ai.models.gemini import GeminiModel
 from pydantic_ai.providers.google_gla import GoogleGLAProvider
 
-from config import GEMINI_KEY_PROPERTY, config_manager
+from config import config_manager
+from config.config import GEMINI_KEY_PROPERTY
 from gemini.pr_prompt import PrPrompt
 from gh.pull_request import PullRequest
 

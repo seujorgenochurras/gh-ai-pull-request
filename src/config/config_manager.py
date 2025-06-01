@@ -2,7 +2,8 @@ import os
 from typing import Any
 import json
 
-from config import DEFAULT_CONFIG_DIR_PATH
+from config.config import DEFAULT_CONFIG_DIR_PATH
+
 
 
 
