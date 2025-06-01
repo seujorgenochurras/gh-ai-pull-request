@@ -1,6 +1,7 @@
 import questionary
 
-from config import GEMINI_KEY_PROPERTY, INSTRUCTIONS_PROPERTY, config_manager
+from config import config_manager
+from config.config import GEMINI_KEY_PROPERTY, INSTRUCTIONS_PROPERTY
 from gemini.prompt_manager import PromptManager
 from gemini.pr_prompt import PrPrompt
 from gh import gh_manager
@@ -25,14 +26,10 @@ def ensure_instructions():
 def ask_ai_instruction():
   instructions: list[str] = ensure_instructions()
 
-  choices: list[questionary.Choice] = []
-  choices.append(questionary.Choice("Create new prompt", "new_prompt"))
-
-  for instruction in instructions:
-    choices.append(questionary.Choice(instruction, instruction))
+  new_prompt_choice = questionary.Choice("Create new prompt", "new_prompt")
 
   selected_instruction = questionary.select(
-    "Choose the AI prompt", choices=["Create new prompt"] + instructions
+    "Choose the AI prompt", choices=[new_prompt_choice] + instructions
   ).ask()
 
   if selected_instruction == "new_prompt":
