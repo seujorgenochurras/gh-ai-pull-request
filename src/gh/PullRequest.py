@@ -1,9 +1,9 @@
-from dataclasses import dataclass
 from typing import List
 
+from pydantic import BaseModel
 
-@dataclass
-class PullRequest:
+
+class PullRequest(BaseModel):
   title: str
   draft: str
   base: str
