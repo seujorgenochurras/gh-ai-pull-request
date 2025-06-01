@@ -6,8 +6,6 @@ from gemini.PromptManager import PromptManager
 from gemini.PrPrompt import PrPrompt
 from gh import GhManager
 
-# "reescreva o body do pr em portugues, mantenha o tipo do commit seguindo conventional commits, nao traduza o tipo do commit"
-
 
 def ask_create_instruction():
   instruction = questionary.text("Write instructions for the AI").ask()
