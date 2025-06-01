@@ -1,14 +1,10 @@
-import json
 import questionary
+
 from config import config_manager
 from config.config import GEMINI_KEY_PROPERTY, INSTRUCTIONS_PROPERTY
-from gemini.PrPrompt import PrPrompt
 from gemini.PromptManager import PromptManager
+from gemini.PrPrompt import PrPrompt
 from gh import GhManager
-from gh.PullRequest import PullRequest
-
-
-
 
 # "reescreva o body do pr em portugues, mantenha o tipo do commit seguindo conventional commits, nao traduza o tipo do commit"
 
@@ -27,6 +23,7 @@ def ensure_instructions():
   if not instructions:
     instructions = ask_create_instruction()
   return instructions
+
 
 def ask_ai_instruction():
   instructions: list[str] = ensure_instructions()
@@ -54,11 +51,11 @@ def ensure_ai_key():
     config_manager.save(GEMINI_KEY_PROPERTY, key)
 
 
-def create_pull_request(instruction : str):
+def create_pull_request(instruction: str):
   ai_manager = PromptManager()
   pr_json = GhManager.create_dry_pr()
-  raw_new_pr_json = ai_manager.prompt_pr(PrPrompt(pr_json, instruction))
-  new_pr = PullRequest(**json.loads(raw_new_pr_json))
+  new_pr = ai_manager.prompt_pr(PrPrompt(pr_json, instruction))
+
   return GhManager.create_pr(new_pr)
 
 
