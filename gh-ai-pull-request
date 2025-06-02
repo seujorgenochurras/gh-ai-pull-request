@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+
+EXECUTETION_DIR=$(pwd)
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
 cd "$SCRIPT_DIR"
 VENV_DIR="$SCRIPT_DIR/venv"
@@ -23,4 +25,5 @@ if [ ! -f "$VENV_DIR/bin/ruff" ]; then # just checking if any dependency has bee
 fi
 
 
-exec pdm run "dev" "$@"
+cd "$EXECUTETION_DIR"
+exec $VENV_PYTHON "$SCRIPT_DIR/src/main.py" "$@"
