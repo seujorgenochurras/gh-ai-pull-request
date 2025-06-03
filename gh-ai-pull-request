@@ -7,7 +7,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
 cd "$SCRIPT_DIR"
 VENV_DIR="$SCRIPT_DIR/venv"
 VENV_PYTHON="$VENV_DIR/bin/python"
-
+VENV_TYPER="$VENV_DIR/bin/typer"
 
 if [ ! -d "$VENV_DIR" ]; then
   echo "Creating virtual environment..."
@@ -24,6 +24,5 @@ if [ ! -f "$VENV_DIR/bin/ruff" ]; then # just checking if any dependency has bee
   pdm install
 fi
 
-
 cd "$EXECUTETION_DIR"
-exec $VENV_PYTHON "$SCRIPT_DIR/src/main.py" "$@"
+exec $VENV_TYPER "$SCRIPT_DIR/src/cli.py" run "$@"

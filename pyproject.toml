@@ -1,11 +1,11 @@
 [project]
-name = "gh-AI-Pull-Request"
+name = "gh-ai-pull-request"
 version = "0.1.0"
 description = "Default template for PDM package"
 authors = [
     { name = "seujorgenochurras", email = "senhor_dois_monitores@outlook.com" },
 ]
-dependencies = ["ruff>=0.11.11", "questionary>=2.1.0", "pydantic-ai>=0.2.12"]
+dependencies = ["ruff>=0.11.11", "questionary>=2.1.0", "pydantic-ai>=0.2.12", "typer>=0.16.0", "typing-extensions>=4.14.0"]
 requires-python = "==3.12.*"
 readme = "README.md"
 license = { text = "MIT" }
@@ -14,5 +14,12 @@ license = { text = "MIT" }
 format = "ruff format ."
 dev = "python src/main.py"
 
+[project.scripts]
+testew = "cli:app"
+
 [tool.ruff]
 indent-width = 2
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
